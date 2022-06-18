@@ -4,7 +4,8 @@ const cors = require("cors");
 
 require("./Db/db.config");
 
-const User = require("./db/User");
+const User = require("./Db/User");
+const Product = require("./Db/Product")
 
 app.use(express.json());// to capture json object from request body
 app.use(cors());
@@ -33,5 +34,10 @@ app.post("/login", async (req, res) => {
     }
 })
 
+app.post("/add-product", async (req, res) =>{
+    let product = new Product(req.body);
+    let result = await product.save();
+    res.send(result)
+})
 
 app.listen(5000)
